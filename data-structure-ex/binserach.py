@@ -30,7 +30,9 @@ def bin_search_min_max(arr: list[int], target, type : str):
     while min <= max:
         middle = (min + max) // 2
         expect_target = arr[middle]
-        if target >= expect_target:
+        if target == expect_target:
+            return target
+        elif expect_target < target:
             min = middle + 1
         else:
             max = middle -1
