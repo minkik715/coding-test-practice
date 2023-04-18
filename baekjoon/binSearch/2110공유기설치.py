@@ -18,15 +18,16 @@ def binSearch(c, house_locate):
             pl = middle + 1
         else:
             pr = middle - 1
-    return middle
+    return pr
 
-def install(house_locate: list[int], segment: int):
+def install(house_locate: list[int], segment: int) -> int:
     current = house_locate[0]
-    cnt = 0
-    for next_c in house_locate[1:]:
-        if current+segment <= next_c:
-           cnt += 1
-           current = next_c
-    return cnt
+    c = 1
+    for i in house_locate[1:]:
+        if current + segment <= i:
+            c += 1
+            current = i
+    return c
+
 if __name__ == '__main__':
     main()
