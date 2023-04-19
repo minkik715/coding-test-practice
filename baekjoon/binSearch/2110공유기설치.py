@@ -11,14 +11,16 @@ def main():
 def binSearch(c, house_locate):
     pl = 1
     pr = house_locate[-1] - house_locate[0]
+    answer = 0
     while pl <= pr:
         middle = (pl + pr) // 2
         install_c = install(house_locate, middle)
         if install_c >= c:
+            answer = middle
             pl = middle + 1
         else:
             pr = middle - 1
-    return pr
+    return answer
 
 def install(house_locate: list[int], segment: int) -> int:
     current = house_locate[0]

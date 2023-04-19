@@ -1,33 +1,32 @@
-def bin_search(need_tree_size, tree_sizes: list[int]):
-    pl = 1
-    pr = max(tree_sizes)
-    while pl <= pr:
-        middle = (pl + pr) // 2
-        tree_bucket = cut_tree_size(tree_sizes, middle)
-        if tree_bucket == need_tree_size:
-            return middle
-            break
-        elif tree_bucket > need_tree_size:
-            pl = middle + 1
+def upper_bound(trees: list, k: int):
+    first, last = 0, trees[-1]
+    answer = (first + last) // 2
+    while first <= last:
+        middle = (first + last) // 2
+        get_tree = cut_trees(trees, middle)
+        if get_tree >= k:
+            answer = middle
+            first = middle + 1
         else:
-            pr = middle - 1
-    return pr
+            last = middle - 1
+    return answer
 
 
-def cut_tree_size(tree_sizes, cut_size) -> int:
-    result = 0
-    for tree_size in tree_sizes:
-        size = tree_size - cut_size
-        if size > 0:
-            result += size
-    return result
+def cut_trees(trees: list, cut_height):
+    cut_tree_height = 0
+    for tree in trees:
+        t = tree - cut_height
+        if t > 0:
+            cut_tree_height += t
+    return cut_tree_height
 
 
 def main():
-    n, need_tree_size = list(map(int, input().split()))
-    tree_sizes = list(map(int, input().split()))
-    print(bin_search(need_tree_size, tree_sizes))
+    n, k = map(int, input().split())
+    trees = list(map(int, input().split()))
+    trees.sort()
+    print(upper_bound(trees, k))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
